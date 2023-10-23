@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function FormUsuarios() {
+const FormUsuarios = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -8,6 +8,7 @@ function FormUsuarios() {
     password: '',
     isAdmin: false,
   });
+
   const [users, setUsers] = useState([
     {
       id: 991,
@@ -26,7 +27,9 @@ function FormUsuarios() {
       isAdmin: false,
     },
   ]);
+
   const [editingUserId, setEditingUserId] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -53,6 +56,7 @@ function FormUsuarios() {
         password: '',
         isAdmin: false,
       });
+      setIsFormVisible(false);
     }
   };
 
@@ -66,6 +70,7 @@ function FormUsuarios() {
       password: userToEdit.password,
       isAdmin: userToEdit.isAdmin,
     });
+    setIsFormVisible(true);
   };
 
   const handleCancel = () => {
@@ -77,6 +82,7 @@ function FormUsuarios() {
       password: '',
       isAdmin: false,
     });
+    setIsFormVisible(false);
   };
 
   const handleDelete = (userId) => {
@@ -84,65 +90,72 @@ function FormUsuarios() {
     setUsers(updatedUsers);
   };
 
+  const handleAddUser = () => {
+    setIsFormVisible(true);
+  };
+
   return (
     <div>
       <h1>Formulario de Usuarios</h1>
-      <div>
+      {isFormVisible ? (
         <div>
-          <label htmlFor="name">Nombre:</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nombre"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="isActive">Activo:</label>
-          <input
-            type="checkbox"
-            name="isActive"
-            checked={formData.isActive}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="isAdmin">Administrador:</label>
-          <input
-            type="checkbox"
-            name="isAdmin"
-            checked={formData.isAdmin}
-            onChange={handleChange}
-          />
-        </div>
-        <button onClick={handleSubmit}>
-          {editingUserId !== null ? 'Guardar' : 'Enviar'}
-        </button>
-        {editingUserId !== null && (
+          <div>
+            <label htmlFor="name">Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Nombre"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="isActive">Activo:</label>
+            <input
+              type="checkbox"
+              name="isActive"
+              checked={formData.isActive}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Contraseña:</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="isAdmin">Administrador:</label>
+            <input
+              type="checkbox"
+              name="isAdmin"
+              checked={formData.isAdmin}
+              onChange={handleChange}
+            />
+          </div>
+          <button onClick={handleSubmit}>
+            {editingUserId !== null ? 'Guardar' : 'Enviar'}
+          </button>
+          {editingUserId !== null}
           <button onClick={handleCancel}>Cancelar</button>
-        )}
-      </div>
+        </div>
+      ) : (
+        <button onClick={handleAddUser}>Agregar Usuario</button>
+      )}
       <table>
         <thead>
           <tr>
@@ -174,6 +187,6 @@ function FormUsuarios() {
       </table>
     </div>
   );
-}
+};
 
 export default FormUsuarios;

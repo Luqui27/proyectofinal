@@ -24,6 +24,7 @@ function FormMenu() {
     { id: 154, name: '12 empanadas', isAvailable: true, price: '200', detail: 'Docena de empanadas variadas', category: 'Entradas' },
   ]);
   const [editingMenuId, setEditingMenuId] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,6 +51,7 @@ function FormMenu() {
         detail: '',
         category: '',
       });
+      setShowForm(false);
     }
   };
 
@@ -63,6 +65,7 @@ function FormMenu() {
       detail: menuToEdit.detail,
       category: menuToEdit.category,
     });
+    setShowForm(true);
   };
 
   const handleDelete = (menuId) => {
@@ -70,83 +73,111 @@ function FormMenu() {
     setMenus(updatedMenus);
   };
 
+  const handleAddMenu = () => {
+    setShowForm(true);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingMenuId(null);
+    setFormDataMenu({
+      name: '',
+      isAvailable: false,
+      price: '',
+      detail: '',
+      category: '',
+    });
+    setShowForm(false); // Ocultar el formulario al cancelar la edición
+  };
+
+  const handleCancelAddMenu = () => {
+    setShowForm(false);
+  };
+
   return (
     <div>
       <h1>Formulario de Menús</h1>
       <div>
-        <div>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre"
-              value={formDataMenu.name}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Disponible:
-            <input
-              type="checkbox"
-              name="isAvailable"
-              checked={formDataMenu.isAvailable}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Precio:
-            <input
-              type="number"
-              name="price"
-              placeholder="Precio"
-              value={formDataMenu.price}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Detalle:
-            <input
-              type="text"
-              name="detail"
-              placeholder="Detalle"
-              value={formDataMenu.detail}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Categoría:
-            <select
-              name="category"
-              value={formDataMenu.category}
-              onChange={handleChange}
-            >
-              <option value="">Seleccione una categoría</option>
-              {categoriesOptions.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <button onClick={handleSubmit}>
-            {editingMenuId !== null ? 'Guardar' : 'Enviar'}
-          </button>
-          {editingMenuId !== null && (
-            <button onClick={() => setEditingMenuId(null)}>Cancelar</button>
-          )}
-        </div>
+        <button onClick={handleAddMenu}>Agregar Menú</button>
       </div>
+      {showForm && (
+        <div>
+          <div>
+            <label>
+              Nombre:
+              <input
+                type="text"
+                name="name"
+                placeholder="Nombre"
+                value={formDataMenu.name}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Disponible:
+              <input
+                type="checkbox"
+                name="isAvailable"
+                checked={formDataMenu.isAvailable}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Precio:
+              <input
+                type="number"
+                name="price"
+                placeholder="Precio"
+                value={formDataMenu.price}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Detalle:
+              <input
+                type="text"
+                name="detail"
+                placeholder="Detalle"
+                value={formDataMenu.detail}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Categoría:
+              <select
+                name="category"
+                value={formDataMenu.category}
+                onChange={handleChange}
+              >
+                <option value="">Seleccione una categoría</option>
+                {categoriesOptions.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <button onClick={handleSubmit}>
+              {editingMenuId !== null ? 'Guardar' : 'Enviar'}
+            </button>
+            {editingMenuId !== null && (
+              <button onClick={handleCancelEdit}>Cancelar</button>
+            )}
+            {editingMenuId === null && (
+              <button onClick={handleCancelAddMenu}>Cancelar</button>
+            )}
+          </div>
+        </div>
+      )}
       <table>
         <thead>
           <tr>
