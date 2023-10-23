@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 
 function FormPedidos() {
-  const [formDataPedidos, setFormDataPedidos] = useState({ name: '', cantidad: '' });
-  const [pedidos, setPedidos] = useState([{name:'papitas',cantidad:'5',id:556},{name:'Asau',cantidad:'27',id:446}]);
+  const [formDataPedidos, setFormDataPedidos] = useState({
+    id: '',
+    usuario: '',
+    fecha: '',
+    menu: '',
+    servido: false,
+  });
+  const [pedidos, setPedidos] = useState([
+    { id: 556, usuario: 'Lucas Gonzalo', fecha: '2023-10-23', menu: 'Papitas', servido: true },
+    { id: 446, usuario: 'Ernesto', fecha: '2023-10-22', menu: 'Asado', servido: false },
+  ]);
   const [editingPedidoId, setEditingPedidoId] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormDataPedidos({ ...formDataPedidos, [name]: value });
+    const { name, checked } = e.target;
+    setFormDataPedidos({ ...formDataPedidos, [name]: checked });
   };
 
   const handleSubmit = () => {
-    if (formDataPedidos.name && formDataPedidos.cantidad) {
+    if (formDataPedidos.usuario && formDataPedidos.fecha && formDataPedidos.menu) {
       if (editingPedidoId !== null) {
         const updatedPedidos = pedidos.map((pedido) =>
-          pedido.id === editingPedidoId ? { ...pedido, ...formDataPedidos } : pedido
+          pedido.id === editingPedidoId ? { ...pedido, servido: formDataPedidos.servido } : pedido
         );
         setPedidos(updatedPedidos);
         setEditingPedidoId(null);
@@ -22,14 +31,20 @@ function FormPedidos() {
         const newPedido = { ...formDataPedidos, id: Date.now() };
         setPedidos([...pedidos, newPedido]);
       }
-      setFormDataPedidos({ name: '', cantidad: '' });
+      setFormDataPedidos({ id: '', usuario: '', fecha: '', menu: '', servido: false });
     }
   };
 
   const handleEdit = (pedidoId) => {
     setEditingPedidoId(pedidoId);
     const pedidoToEdit = pedidos.find((pedido) => pedido.id === pedidoId);
-    setFormDataPedidos({ name: pedidoToEdit.name, cantidad: pedidoToEdit.cantidad });
+    setFormDataPedidos({
+      id: pedidoToEdit.id,
+      usuario: pedidoToEdit.usuario,
+      fecha: pedidoToEdit.fecha,
+      menu: pedidoToEdit.menu,
+      servido: pedidoToEdit.servido,
+    });
   };
 
   const handleDelete = (pedidoId) => {
@@ -39,39 +54,40 @@ function FormPedidos() {
 
   return (
     <div>
-      <h1>Formulario de Pedidos</h1>
-      <div>
-        <input
-          type="text"
-          name="name"
-          placeholder="Nombre"
-          value={formDataPedidos.name}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="cantidad"
-          placeholder="cantidad"
-          value={formDataPedidos.cantidad}
-          onChange={handleChange}
-        />
-        <button onClick={handleSubmit}>
-          {editingPedidoId !== null ? 'Guardar' : 'Enviar'}
-        </button>
-      </div>
+      {editingPedidoId !== null && (
+        <div>
+          <h1>Formulario de Edición</h1>
+          <label>
+            Servido:
+            <input
+              type="checkbox"
+              name="servido"
+              checked={formDataPedidos.servido}
+              onChange={handleChange}
+            />
+          </label>
+          <button onClick={handleSubmit}>Guardar</button>
+        </div>
+      )}
       <table>
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Cantidad</th>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Menu</th>
+            <th>Servido</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {pedidos.map((pedido) => (
             <tr key={pedido.id}>
-              <td>{pedido.name}</td>
-              <td>{pedido.cantidad}</td>
+              <td>{pedido.id}</td>
+              <td>{pedido.usuario}</td>
+              <td>{pedido.fecha}</td>
+              <td>{pedido.menu}</td>
+              <td>{pedido.servido ? 'Sí' : 'No'}</td>
               <td>
                 <button onClick={() => handleEdit(pedido.id)}>Editar</button>
                 <button onClick={() => handleDelete(pedido.id)}>Eliminar</button>

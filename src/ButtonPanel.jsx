@@ -6,7 +6,7 @@ import FormMenu from './FormMenu';
 import FormPedidos from './FormPedidos';
 
 const ButtonPanel = () => {
-  const [showFormUsuarios, setShowFormUsuarios] = useState(false);
+  const [showFormUsuarios, setShowFormUsuarios] = useState(true);
   const [showFormMenu, setShowFormMenu] = useState(false);
   const [showFormPedidos, setShowFormPedidos] = useState(false);
 
