@@ -56,6 +56,9 @@ function FormPedidos() {
 
   return (
     <div>
+      <div>
+      <h1>Formulario de Pedidos</h1>
+      </div>
       {editingPedidoId !== null && (
         <div className="m-5">
         <Form>

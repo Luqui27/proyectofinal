@@ -30,7 +30,7 @@ const ButtonPanel = () => {
 
   return (
     <div className="mt-4">
-      <div className="d-flex justify-content-center">
+      <div className="container d-flex align-items-center justify-content-center">
         <button onClick={handleUsuariosClick} type="button" className="btn btn-primary mx-2">
           Usuarios
         </button>
@@ -42,7 +42,7 @@ const ButtonPanel = () => {
         </button>
       </div>
 
-      <div className="row mt-4">
+      <div className=" container d-flex align-items-center justify-content-center">
         <div className="col">
           {showFormUsuarios && <FormUsuarios />}
           {showFormMenu && <FormMenu />}

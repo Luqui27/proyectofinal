@@ -3,7 +3,7 @@ import ButtonPanel from './Administrador/ButtonPanel';
 
 function App() {
   return (
-    <div className="container d-flex align-items-center justify-content-center">
+    <div>
       <ButtonPanel />
     </div>
   );
