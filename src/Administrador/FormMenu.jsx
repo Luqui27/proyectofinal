@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import { Form, Button } from 'react-bootstrap';
 
 const categoriesOptions = [
   'Entradas',
@@ -97,88 +99,81 @@ function FormMenu() {
     <div>
       <h1>Formulario de Menús</h1>
       <div>
-        <button onClick={handleAddMenu}>Agregar Menú</button>
-      </div>
+  {!showForm && (
+    <Button variant="primary m-1" onClick={handleAddMenu}>Agregar Menú</Button>
+  )}
+</div>
       {showForm && (
-        <div>
-          <div>
-            <label>
-              Nombre:
-              <input
-                type="text"
-                name="name"
-                placeholder="Nombre"
-                value={formDataMenu.name}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Disponible:
-              <input
-                type="checkbox"
-                name="isAvailable"
-                checked={formDataMenu.isAvailable}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Precio:
-              <input
-                type="number"
-                name="price"
-                placeholder="Precio"
-                value={formDataMenu.price}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Detalle:
-              <input
-                type="text"
-                name="detail"
-                placeholder="Detalle"
-                value={formDataMenu.detail}
-                onChange={handleChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Categoría:
-              <select
-                name="category"
-                value={formDataMenu.category}
-                onChange={handleChange}
-              >
-                <option value="">Seleccione una categoría</option>
-                {categoriesOptions.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <div>
-            <button onClick={handleSubmit}>
-              {editingMenuId !== null ? 'Guardar' : 'Enviar'}
-            </button>
-            {editingMenuId !== null && (
-              <button onClick={handleCancelEdit}>Cancelar</button>
-            )}
-            {editingMenuId === null && (
-              <button onClick={handleCancelAddMenu}>Cancelar</button>
-            )}
-          </div>
-        </div>
+        <div className='m-5'>
+        <Form>
+          <Form.Group>
+            <Form.Label>Nombre:</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Nombre"
+              value={formDataMenu.name}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Check
+              type="checkbox"
+              name="isAvailable"
+              checked={formDataMenu.isAvailable}
+              onChange={handleChange}
+              label="Disponible"
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Precio:</Form.Label>
+            <Form.Control
+              type="number"
+              name="price"
+              placeholder="Precio"
+              value={formDataMenu.price}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Detalle:</Form.Label>
+            <Form.Control
+              type="text"
+              name="detail"
+              placeholder="Detalle"
+              value={formDataMenu.detail}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Categoría:</Form.Label>
+            <Form.Control
+              as="select"
+              name="category"
+              value={formDataMenu.category}
+              onChange={handleChange}
+            >
+              <option value="">Seleccione una categoría</option>
+              {categoriesOptions.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
+          <Button variant="success" onClick={handleSubmit}>
+            {editingMenuId !== null ? 'Guardar' : 'Enviar'}
+          </Button>
+          {editingMenuId !== null && (
+            <Button variant="secondary m-1" onClick={handleCancelEdit}>Cancelar</Button>
+          )}
+          {editingMenuId === null && (
+            <Button variant="secondary m-1" onClick={handleCancelAddMenu}>Cancelar</Button>
+          )}
+        </Form>
+      </div>
       )}
-      <table>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -200,13 +195,13 @@ function FormMenu() {
               <td>{menu.detail}</td>
               <td>{menu.category}</td>
               <td>
-                <button onClick={() => handleEdit(menu.id)}>Editar</button>
-                <button onClick={() => handleDelete(menu.id)}>Eliminar</button>
+              <Button variant="warning m-1" onClick={() => handleEdit(menu.id)}>Editar</Button>
+                <Button variant="danger m-1" onClick={() => handleDelete(menu.id)}>Eliminar</Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

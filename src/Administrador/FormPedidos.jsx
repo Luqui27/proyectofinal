@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import { Form, Button } from 'react-bootstrap';
 
 function FormPedidos() {
   const [formDataPedidos, setFormDataPedidos] = useState({
@@ -55,21 +57,27 @@ function FormPedidos() {
   return (
     <div>
       {editingPedidoId !== null && (
-        <div>
-          <h1>Formulario de Edición</h1>
-          <label>
-            Servido:
-            <input
+        <div className="m-5">
+        <Form>
+          <Form.Group controlId="formServido">
+            <Form.Check
               type="checkbox"
+              label="Servido"
               name="servido"
               checked={formDataPedidos.servido}
               onChange={handleChange}
+              className="form-check"
             />
-          </label>
-          <button onClick={handleSubmit}>Guardar</button>
-        </div>
+          </Form.Group>
+      
+          <Button variant="success" onClick={handleSubmit} className="m-1">
+            Guardar
+          </Button>
+        </Form>
+      </div>
+      
       )}
-      <table>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -89,13 +97,13 @@ function FormPedidos() {
               <td>{pedido.menu}</td>
               <td>{pedido.servido ? 'Sí' : 'No'}</td>
               <td>
-                <button onClick={() => handleEdit(pedido.id)}>Editar</button>
-                <button onClick={() => handleDelete(pedido.id)}>Eliminar</button>
+                <Button variant="warning m-1" onClick={() => handleEdit(pedido.id)}>Editar</Button>
+                <Button variant="danger m-1" onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

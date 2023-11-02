@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import { Form, Button } from 'react-bootstrap';
 
 const FormUsuarios = () => {
   const [formData, setFormData] = useState({
@@ -98,65 +100,72 @@ const FormUsuarios = () => {
     <div>
       <h1>Formulario de Usuarios</h1>
       {isFormVisible ? (
-        <div>
-          <div>
-            <label htmlFor="name">Nombre:</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Nombre"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="isActive">Activo:</label>
-            <input
-              type="checkbox"
-              name="isActive"
-              checked={formData.isActive}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Contraseña"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="isAdmin">Administrador:</label>
-            <input
-              type="checkbox"
-              name="isAdmin"
-              checked={formData.isAdmin}
-              onChange={handleChange}
-            />
-          </div>
-          <button onClick={handleSubmit}>
-            {editingUserId !== null ? 'Guardar' : 'Enviar'}
-          </button>
-          {editingUserId !== null}
-          <button onClick={handleCancel}>Cancelar</button>
+        <div className='m-5'>
+          <Form>
+          <Form.Group>
+  <Form.Label>Nombre:</Form.Label>
+  <Form.Control
+    type="text"
+    name="name"
+    placeholder="Nombre"
+    value={formData.name}
+    onChange={handleChange}
+  />
+</Form.Group>
+<Form.Group>
+  <Form.Label>Email:</Form.Label>
+  <Form.Control
+    type="text"
+    name="email"
+    placeholder="Email"
+    value={formData.email}
+    onChange={handleChange}
+    className="form-control"
+  />
+</Form.Group>
+<Form.Group>
+  <Form.Check
+    type="checkbox"
+    name="isActive"
+    checked={formData.isActive}
+    onChange={handleChange}
+    label="Activo"
+    className="form-check"
+  />
+</Form.Group>
+<Form.Group>
+  <Form.Label>Contraseña:</Form.Label>
+  <Form.Control
+    type="password"
+    name="password"
+    placeholder="Contraseña"
+    value={formData.password}
+    onChange={handleChange}
+    className="form-control"
+  />
+</Form.Group>
+<Form.Group>
+  <Form.Check
+    type="checkbox"
+    name="isAdmin"
+    checked={formData.isAdmin}
+    onChange={handleChange}
+    label="Administrador"
+    className="form-check"
+  />
+</Form.Group>
+          <Button className='btn btn-success m-1' onClick={handleSubmit}>
+  {editingUserId !== null ? 'Guardar' : 'Enviar'}
+</Button>
+<Button className='btn btn-secondary m-1' onClick={handleCancel}>
+  Cancelar
+</Button>
+          </Form>
         </div>
       ) : (
-        <button onClick={handleAddUser}>Agregar Usuario</button>
+        <button className='btn btn-primary m-1' onClick={handleAddUser}>Agregar Usuario</button>
       )}
-      <table>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -178,13 +187,14 @@ const FormUsuarios = () => {
               <td>{user.password}</td>
               <td>{user.isAdmin ? 'Sí' : 'No'}</td>
               <td>
-                <button onClick={() => handleEdit(user.id)}>Editar</button>
-                <button onClick={() => handleDelete(user.id)}>Eliminar</button>
+                <button className='btn btn-warning m-1' onClick={() => handleEdit(user.id)}>Editar</button>
+                <button className='btn btn-danger m-1' onClick={() => handleDelete(user.id)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
+
     </div>
   );
 };
