@@ -1,9 +1,8 @@
-// ButtonPanel.js
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FormUsuarios from './FormUsuarios';
-import FormMenu from './FormMenu';
-import FormPedidos from './FormPedidos';
+// import FormUsuarios from './FormUsuarios';
+import FormUsuariosContainer from './Usuarios/FormUsuarios';
+import FormPedidosContainer from './Pedidos/FormPedidosContainer';
 
 const ButtonPanel = () => {
   const [showFormUsuarios, setShowFormUsuarios] = useState(true);
@@ -44,9 +43,9 @@ const ButtonPanel = () => {
 
       <div className=" container d-flex align-items-center justify-content-center">
         <div className="col">
-          {showFormUsuarios && <FormUsuarios />}
+          {showFormUsuarios && <FormUsuariosContainer />}
           {showFormMenu && <FormMenu />}
-          {showFormPedidos && <FormPedidos />}
+          {showFormPedidos && <FormPedidosContainer />}
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import { Form, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import FormularioPedidos from './FormularioPedidos';
+import TablaPedidos from './TablaPedidos';
 
-function FormPedidos() {
+function FormPedidosContainer() {
   const [formDataPedidos, setFormDataPedidos] = useState({
     id: '',
     usuario: '',
@@ -10,10 +11,12 @@ function FormPedidos() {
     menu: '',
     servido: false,
   });
+
   const [pedidos, setPedidos] = useState([
     { id: 556, usuario: 'Lucas Gonzalo', fecha: '2023-10-23', menu: 'Papitas', servido: true },
     { id: 446, usuario: 'Ernesto', fecha: '2023-10-22', menu: 'Asado', servido: false },
   ]);
+
   const [editingPedidoId, setEditingPedidoId] = useState(null);
 
   const handleChange = (e) => {
@@ -57,58 +60,22 @@ function FormPedidos() {
   return (
     <div>
       <div>
-      <h1>Formulario de Pedidos</h1>
+        <h1>Formulario de Pedidos</h1>
       </div>
       {editingPedidoId !== null && (
-        <div className="m-5">
-        <Form>
-          <Form.Group controlId="formServido">
-            <Form.Check
-              type="checkbox"
-              label="Servido"
-              name="servido"
-              checked={formDataPedidos.servido}
-              onChange={handleChange}
-              className="form-check"
-            />
-          </Form.Group>
-      
-          <Button variant="success" onClick={handleSubmit} className="m-1">
-            Guardar
-          </Button>
-        </Form>
-      </div>
-      
+        <FormularioPedidos
+          formDataPedidos={formDataPedidos}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
       )}
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Usuario</th>
-            <th>Fecha</th>
-            <th>Menu</th>
-            <th>Servido</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pedidos.map((pedido) => (
-            <tr key={pedido.id}>
-              <td>{pedido.id}</td>
-              <td>{pedido.usuario}</td>
-              <td>{pedido.fecha}</td>
-              <td>{pedido.menu}</td>
-              <td>{pedido.servido ? 'Sí' : 'No'}</td>
-              <td>
-                <Button variant="warning m-1" onClick={() => handleEdit(pedido.id)}>Editar</Button>
-                <Button variant="danger m-1" onClick={() => handleDelete(pedido.id)}>Eliminar</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <TablaPedidos
+        pedidos={pedidos}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }
 
-export default FormPedidos;
+export default FormPedidosContainer;
