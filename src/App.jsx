@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonPanel from './Administrador/ButtonPanel';
+import ButtonPanel from './Components/Administrador/ButtonPanel';
 
 function App() {
   return (

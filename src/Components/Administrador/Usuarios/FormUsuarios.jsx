@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { UserForm, UserTable } from './components';
+import UserForm from './UserForm';
+import UserTable from './UserTable';
 
 const FormUsuariosContainer = () => {
   const [formData, setFormData] = useState({
