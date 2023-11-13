@@ -19,17 +19,18 @@ const UserTable = ({ users, handleEdit, handleDelete }) => {
       <tbody>
         {users.map((user) => (
           <tr key={user.id}>
-            <td>{user.id}</td>
+            <td>{user._id}</td>
+            {/* Resto de las columnas */}
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.isActive ? 'Sí' : 'No'}</td>
             <td>{user.password}</td>
             <td>{user.isAdmin ? 'Sí' : 'No'}</td>
             <td>
-              <button className="btn btn-warning m-1" onClick={() => handleEdit(user.id)}>
+              <button className="btn btn-warning m-1" onClick={() => handleEdit(user._id)}>
                 Editar
               </button>
-              <button className="btn btn-danger m-1" onClick={() => handleDelete(user.id)}>
+              <button className="btn btn-danger m-1" onClick={() => handleDelete(user._id)}>
                 Eliminar
               </button>
             </td>

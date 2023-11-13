@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserForm from './UserForm';
 import UserTable from './UserTable';
 
@@ -12,26 +12,23 @@ const FormUsuariosContainer = () => {
     editingUserId: null,
   });
 
-  const [users, setUsers] = useState([
-    {
-      id: 991,
-      name: 'Lucas Gonzalo',
-      email: 'luqita@gmail.com',
-      isActive: true,
-      password: '*****',
-      isAdmin: false,
-    },
-    {
-      id: 884,
-      name: 'Ernesto',
-      email: 'ernesto@gmail.com',
-      isActive: true,
-      password: '*****',
-      isAdmin: false,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/usuarios');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -39,42 +36,58 @@ const FormUsuariosContainer = () => {
     setFormData({ ...formData, [name]: newValue });
   };
 
-  const handleSubmit = () => {
-    if (formData.name && formData.email && formData.password) {
-      if (formData.editingUserId !== null) {
-        const updatedUsers = users.map((user) =>
-          user.id === formData.editingUserId ? { ...user, ...formData } : user
-        );
-        setUsers(updatedUsers);
-        setFormData({ ...formData, editingUserId: null });
-      } else {
-        const newUser = { ...formData, id: Date.now() };
-        setUsers([...users, newUser]);
-      }
-      setFormData({
-        name: '',
-        email: '',
-        isActive: false,
-        password: '',
-        isAdmin: false,
-        editingUserId: null,
+  const handleSubmit = async () => {
+    try {
+      const method = formData.editingUserId ? 'PUT' : 'POST';
+      const url = formData.editingUserId
+        ? `http://localhost:3000/api/usuarios/${formData.editingUserId}`
+        : 'http://localhost:3000/api/usuarios';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setIsFormVisible(false);
+
+      if (response.ok) {
+        fetchData();
+        setFormData({
+          name: '',
+          email: '',
+          isActive: false,
+          password: '',
+          isAdmin: false,
+          editingUserId: null,
+        });
+        setIsFormVisible(false);
+      } else {
+        console.error('Error al enviar formulario:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al enviar formulario:', error);
     }
   };
 
   const handleEdit = (userId) => {
-    setFormData({ ...formData, editingUserId: userId });
-    const userToEdit = users.find((user) => user.id === userId);
-    setFormData({
-      name: userToEdit.name,
-      email: userToEdit.email,
-      isActive: userToEdit.isActive,
-      password: userToEdit.password,
-      isAdmin: userToEdit.isAdmin,
-    });
-    setIsFormVisible(true);
+    const userToEdit = users.find((user) => user._id === userId);
+    if (userToEdit) {
+      setFormData({
+        ...formData,
+        editingUserId: userId,
+        name: userToEdit.name,
+        email: userToEdit.email,
+        isActive: userToEdit.isActive,
+        password: userToEdit.password,
+        isAdmin: userToEdit.isAdmin,
+      });
+      setIsFormVisible(true);
+    } else {
+      console.error('Usuario no encontrado para editar');
+    }
   };
+  
 
   const handleCancel = () => {
     setFormData({
@@ -88,9 +101,20 @@ const FormUsuariosContainer = () => {
     setIsFormVisible(false);
   };
 
-  const handleDelete = (userId) => {
-    const updatedUsers = users.filter((user) => user.id !== userId);
-    setUsers(updatedUsers);
+  const handleDelete = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        fetchData();
+      } else {
+        console.error('Error al eliminar usuario:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al eliminar usuario:', error);
+    }
   };
 
   const handleAddUser = () => {
