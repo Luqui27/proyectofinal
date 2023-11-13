@@ -20,11 +20,10 @@ const MenuForm = ({
 
   const validateForm = () => {
     const errors = {
-      name: formDataMenu.name ? '' : 'El nombre es obligatorio',
+      name: (formDataMenu.name.length >= 6 && formDataMenu.name.length <= 50) ? '' : 'El nombre debe tener entre 6 y 50 caracteres',
       price: formDataMenu.price ? '' : 'El precio es obligatorio',
       category: formDataMenu.category ? '' : 'Seleccione una categoría',
-      detail: formDataMenu.detail.length <= 200 ? '' : 'El máximo son 200 caracteres',
-      detail: formDataMenu.detail.length >= 10 ? '' : 'El mínimo son 10 caracteres',
+      detail: (formDataMenu.detail.length >= 10 && formDataMenu.detail.length <= 200) ? '' : 'debe tener entre 10 y 200 caracteres',
     };
 
     setFormErrors(errors);
