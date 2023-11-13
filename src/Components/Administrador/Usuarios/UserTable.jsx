@@ -1,4 +1,3 @@
-// UserTable.jsx
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
@@ -20,7 +19,6 @@ const UserTable = ({ users, handleEdit, handleDelete }) => {
         {users.map((user) => (
           <tr key={user.id}>
             <td>{user._id}</td>
-            {/* Resto de las columnas */}
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.isActive ? 'Sí' : 'No'}</td>
