@@ -1,3 +1,5 @@
+// FormMenu.js
+
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import MenuForm from './MenuForm';
@@ -21,6 +23,7 @@ const FormMenu = () => {
     price: '',
     detail: '',
     category: '',
+    url: '', // Campo URL agregado
   });
   const [menus, setMenus] = useState([
     { id: 1234, name: 'Pastel de Papas', isAvailable: true, price: '1500', detail: 'Delicioso pastel con papas', category: 'Plato Principal' },
@@ -53,6 +56,7 @@ const FormMenu = () => {
         price: '',
         detail: '',
         category: '',
+        url: '', // Restablecer el campo URL
       });
       setShowForm(false);
     }
@@ -67,6 +71,7 @@ const FormMenu = () => {
       price: menuToEdit.price,
       detail: menuToEdit.detail,
       category: menuToEdit.category,
+      url: menuToEdit.url || '', // Ajustar para manejar el campo URL si ya existe
     });
     setShowForm(true);
   };
@@ -88,6 +93,7 @@ const FormMenu = () => {
       price: '',
       detail: '',
       category: '',
+      url: '', // Restablecer el campo URL
     });
     setShowForm(false);
   };
