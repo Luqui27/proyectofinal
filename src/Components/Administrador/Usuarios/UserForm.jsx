@@ -12,7 +12,7 @@ const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error })
     const errors = {
       name: formData.name.length >= 3 && formData.name.length <= 50 ? '' : 'El nombre debe tener entre 3 y 50 caracteres',
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? '' : 'Ingrese un email válido',
-      password: formData.password.length >= 6 && formData.password.length <= 20 ? '' : 'La contraseña debe tener entre 6 y 20 caracteres',
+      password: formData.password.length >= 6 ? '' : 'La contraseña debe tener entre 6 y 20 caracteres',
     };
 
     setFormErrors(errors);

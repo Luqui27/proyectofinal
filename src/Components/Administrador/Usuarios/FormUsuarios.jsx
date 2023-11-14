@@ -18,7 +18,7 @@ const FormUsuariosContainer = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/usuarios');
+      const response = await fetch('https://restaurantedb.onrender.com/api/usuarios');
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -40,8 +40,8 @@ const FormUsuariosContainer = () => {
     try {
       const method = formData.editingUserId ? 'PUT' : 'POST';
       const url = formData.editingUserId
-        ? `http://localhost:3000/api/usuarios/${formData.editingUserId}`
-        : 'http://localhost:3000/api/usuarios';
+        ? `https://restaurantedb.onrender.com/api/usuarios/${formData.editingUserId}`
+        : 'https://restaurantedb.onrender.com/api/usuarios';
 
       const emailExists = users.some(user => user.email === formData.email && user._id !== formData.editingUserId);
 
@@ -112,7 +112,7 @@ const FormUsuariosContainer = () => {
 
   const handleDelete = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+      const response = await fetch(`https://restaurantedb.onrender.com/api/usuarios/${userId}`, {
         method: 'PUT',  // Cambiar a un método PUT para actualizar
         headers: {
           'Content-Type': 'application/json',
