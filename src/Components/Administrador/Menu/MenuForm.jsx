@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Col, Container, Row } from 'react-bootstrap';
+import handleChange from "./FormMenu";
 
 const MenuForm = ({
   formDataMenu,
@@ -72,7 +73,7 @@ const MenuForm = ({
             <Form.Group>
               <Form.Label>Precio:</Form.Label>
               <Form.Control
-                type="number"
+                type="Number"
                 name="price"
                 placeholder="Precio"
                 value={formDataMenu.price}
