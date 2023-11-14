@@ -1,5 +1,3 @@
-// FormMenu.js
-
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import MenuForm from './MenuForm';
