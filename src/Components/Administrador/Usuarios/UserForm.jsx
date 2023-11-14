@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-const UserForm = ({ formData, handleChange, handleSubmit, handleCancel }) => {
+const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error }) => {
   const [formErrors, setFormErrors] = useState({
     name: '',
     email: '',
@@ -98,6 +98,12 @@ const UserForm = ({ formData, handleChange, handleSubmit, handleCancel }) => {
             <Button className='btn btn-secondary m-1' onClick={handleCancel}>
               Cancelar
             </Button>
+
+            {error && (
+              <div className="text-danger mt-2">
+                {error}
+              </div>
+            )}
           </Form>
         </Col>
       </Row>

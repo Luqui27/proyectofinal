@@ -13,8 +13,8 @@ const FormUsuariosContainer = () => {
   });
 
   const [users, setUsers] = useState([]);
-
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [error, setError] = useState('');
 
   const fetchData = async () => {
     try {
@@ -43,6 +43,13 @@ const FormUsuariosContainer = () => {
         ? `http://localhost:3000/api/usuarios/${formData.editingUserId}`
         : 'http://localhost:3000/api/usuarios';
 
+      const emailExists = users.some(user => user.email === formData.email && user._id !== formData.editingUserId);
+
+      if (emailExists) {
+        setError('El correo electrónico ya está en uso. Por favor, utiliza otro.');
+        return;
+      }
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -62,6 +69,7 @@ const FormUsuariosContainer = () => {
           editingUserId: null,
         });
         setIsFormVisible(false);
+        setError('');
       } else {
         console.error('Error al enviar formulario:', response.statusText);
       }
@@ -83,11 +91,11 @@ const FormUsuariosContainer = () => {
         isAdmin: userToEdit.isAdmin,
       });
       setIsFormVisible(true);
+      setError('');
     } else {
       console.error('Usuario no encontrado para editar');
     }
   };
-  
 
   const handleCancel = () => {
     setFormData({
@@ -99,26 +107,33 @@ const FormUsuariosContainer = () => {
       editingUserId: null,
     });
     setIsFormVisible(false);
+    setError('');
   };
 
   const handleDelete = async (userId) => {
     try {
       const response = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
-        method: 'DELETE',
+        method: 'PUT',  // Cambiar a un método PUT para actualizar
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isActive: false }),  // Enviar solo el cambio a isActive
       });
-
+  
       if (response.ok) {
         fetchData();
+        setError('');
       } else {
-        console.error('Error al eliminar usuario:', response.statusText);
+        console.error('Error al deshabilitar usuario:', response.statusText);
       }
     } catch (error) {
-      console.error('Error al eliminar usuario:', error);
+      console.error('Error al deshabilitar usuario:', error);
     }
   };
 
   const handleAddUser = () => {
     setIsFormVisible(true);
+    setError('');
   };
 
   return (
@@ -130,6 +145,7 @@ const FormUsuariosContainer = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
+          error={error}
         />
       ) : (
         <button className='btn btn-primary m-1' onClick={handleAddUser}>
