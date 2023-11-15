@@ -60,7 +60,7 @@ function FormPedidosContainer() {
   return (
     <div>
       <div>
-        <h1>Formulario de Pedidos</h1>
+        <h1 className="tituloform">Formulario de Pedidos</h1>
       </div>
       {editingPedidoId !== null && (
         <FormularioPedidos

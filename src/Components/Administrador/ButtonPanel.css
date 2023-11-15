@@ -1,0 +1,26 @@
+.button-panel {
+    background-color: rgb(16, 132, 111);
+    padding: 20px;
+  }
+  
+  .container-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: yellow; /*Cambiar al color correspondiente*/
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .container-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form-col {
+    width: 100%;
+  }
+  .tituloform {
+    color: white;
+  }

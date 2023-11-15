@@ -156,7 +156,7 @@ const FormMenu = () => {
 
   return (
     <div>
-      <h1>Formulario de Menús</h1>
+      <h1 className="tituloform">Formulario de Menús</h1>
       <div>
         {!showForm && (
           <Button variant="primary m-1" onClick={handleAddMenu}>

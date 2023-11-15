@@ -29,7 +29,7 @@ const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error })
   return (
     <Container className='mt-5'>
       <Row className='justify-content-center'>
-        <Col xs={10} sm={10} md={6} lg={6}>
+        <Col style={{backgroundColor:"white", margin:40, padding:20, borderRadius:20}} xs={10} sm={10} md={6} lg={6}>
           <Form>
             <Form.Group>
               <Form.Label>Nombre:</Form.Label>
@@ -71,7 +71,7 @@ const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error })
             <Form.Group>
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                type='password'
+                type='text'
                 name='password'
                 placeholder='Contraseña'
                 value={formData.password}

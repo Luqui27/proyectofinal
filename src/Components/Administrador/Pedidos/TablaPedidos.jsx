@@ -1,5 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
+import { FaEdit } from "react-icons/fa";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 function TablaPedidos({ pedidos, handleEdit, handleDelete }) {
   return (
@@ -24,10 +26,10 @@ function TablaPedidos({ pedidos, handleEdit, handleDelete }) {
             <td>{pedido.servido ? 'Sí' : 'No'}</td>
             <td>
               <Button variant="warning m-1" onClick={() => handleEdit(pedido.id)}>
-                Editar
+              <FaEdit style={{fontSize: '25px'}} />
               </Button>
               <Button variant="danger m-1" onClick={() => handleDelete(pedido.id)}>
-                Eliminar
+              <FaDeleteLeft style={{fontSize: '25px'}} />
               </Button>
             </td>
           </tr>
