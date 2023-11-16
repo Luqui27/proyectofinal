@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { MdCancel } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
 
 const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error }) => {
   const [formErrors, setFormErrors] = useState({
@@ -93,10 +95,10 @@ const UserForm = ({ formData, handleChange, handleSubmit, handleCancel, error })
             </Form.Group>
 
             <Button className='btn btn-success m-1' onClick={handleFormSubmit}>
-              {formData.editingUserId !== null ? 'Guardar' : 'Enviar'}
+            <FaSave style={{fontSize: '25px'}} />
             </Button>
             <Button className='btn btn-secondary m-1' onClick={handleCancel}>
-              Cancelar
+            <MdCancel style={{fontSize: '25px'}} />
             </Button>
 
             {error && (

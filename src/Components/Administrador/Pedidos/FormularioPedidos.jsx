@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form,Col,Row, Button } from 'react-bootstrap';
+import { FaSave } from "react-icons/fa";
 
 function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
   return (
@@ -19,7 +20,7 @@ function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
         </Form.Group>
 
         <Button variant="success" onClick={handleSubmit} className="m-1">
-          Guardar
+        <FaSave style={{fontSize: '25px'}} />
         </Button>
       </Form>
       </Col>
