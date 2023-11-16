@@ -1,10 +1,12 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form,Col,Row, Button } from 'react-bootstrap';
 
 function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
   return (
     <div className="m-5">
-      <Form>
+      <Row className="justify-content-center">
+      <Col style={{backgroundColor:"white", margin:40, padding:20, borderRadius:20}} xs={10} sm={10} md={6} lg={6}>
+      <Form >
         <Form.Group controlId="formServido">
           <Form.Check
             type="checkbox"
@@ -20,6 +22,10 @@ function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
           Guardar
         </Button>
       </Form>
+      </Col>
+      </Row>
+      
+      
     </div>
   );
 }

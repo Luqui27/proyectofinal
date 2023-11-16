@@ -48,7 +48,7 @@ const MenuForm = ({
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
-        <Col xs={10} sm={10} md={6} lg={6}>
+        <Col style={{backgroundColor:"white", margin:40, padding:20, borderRadius:20}} xs={10} sm={10} md={6} lg={6}>
           <Form>
             <Form.Group>
               <Form.Label>Nombre:</Form.Label>
