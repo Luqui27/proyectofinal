@@ -122,9 +122,9 @@ const FormMenu = () => {
 
       if (response.status === 200) {
         // Eliminación exitosa
-        const updatedMenus = menus.filter((menu) => menu.id !== menuId);
+        const updatedMenus = menus.filter((menu) => menu._id !== menuId);
         setMenus(updatedMenus);
-        fetchMenus();
+        //fetchMenus();
       } else {
         console.error('Error al eliminar menú:', response.statusText);
       }

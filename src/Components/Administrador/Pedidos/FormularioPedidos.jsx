@@ -18,7 +18,6 @@ function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
             className="form-check"
           />
         </Form.Group>
-
         <Button variant="success" onClick={handleSubmit} className="m-1">
         <FaSave style={{fontSize: '25px'}} />
         </Button>
