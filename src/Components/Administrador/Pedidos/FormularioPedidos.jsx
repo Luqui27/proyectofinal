@@ -9,6 +9,7 @@ function FormularioPedidos({ formDataPedidos, handleChange, handleSubmit }) {
       <Col style={{backgroundColor:"white", margin:40, padding:20, borderRadius:20}} xs={10} sm={10} md={6} lg={6}>
       <Form >
         <Form.Group controlId="formServido">
+          <Form.Label>Estado del pedido:</Form.Label>
           <Form.Check
             type="checkbox"
             label="Servido"

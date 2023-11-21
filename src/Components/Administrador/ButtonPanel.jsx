@@ -31,13 +31,13 @@ const ButtonPanel = () => {
   return (
     <div className="button-panel">
       <div className="container-buttons">
-        <button onClick={handleUsuariosClick} type="button" className="btn btn-primary mx-2 buttons">
+        <button onClick={handleUsuariosClick} type="button" className="btn btn-warning mx-3 buttons btn-lg">
           Usuarios
         </button>
-        <button onClick={handleMenuClick} type="button" className="btn btn-secondary mx-2 buttons">
+        <button onClick={handleMenuClick} type="button" className="btn btn-warning mx-3 buttons btn-lg">
           Menús
         </button>
-        <button onClick={handlePedidosClick} type="button" className="btn btn-success mx-2 buttons">
+        <button onClick={handlePedidosClick} type="button" className="btn btn-warning mx-3 buttons btn-lg">
           Pedidos
         </button>
       </div>
